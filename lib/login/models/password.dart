@@ -10,9 +10,6 @@ class Password extends FormzInput<String, PasswordValidationError> {
   PasswordValidationError? validator(String value) {
     if (value.isEmpty) return PasswordValidationError.empty;
     if (value.length < 6) return PasswordValidationError.invalid;
-    if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$').hasMatch(value)) {
-      return PasswordValidationError.invalid;
-    }
     return null;
   }
 }

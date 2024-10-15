@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEmailChanged>(_onEmailChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onLoginSubmitted);
+    on<LoginErrorReset>(_onLoginErrorReset);
   }
   final AuthenticationRepository _authenticationRepository;
 
@@ -38,7 +39,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onLoginSubmitted(
-      LoginSubmitted event, Emitter<LoginState> emit) async {
+    LoginSubmitted event,
+    Emitter<LoginState> emit,
+  ) async {
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
@@ -47,9 +50,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (_) {
+      } catch (e) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));
       }
     }
+  }
+
+  void _onLoginErrorReset(
+    LoginErrorReset event,
+    Emitter<LoginState> emit,
+  ) {
+    emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }
 }

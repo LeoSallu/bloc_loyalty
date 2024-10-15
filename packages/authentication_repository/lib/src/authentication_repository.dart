@@ -16,34 +16,31 @@ class AuthenticationRepository {
 
   Future<void> login({required String email, required String password}) async {
     final bool isValid = await validate(email: email, password: password);
-    isValid
-        ? _controller.add(AuthenticationStatus.authenticated)
-        : _controller.add(AuthenticationStatus.unauthenticated);
-    final currentStatus = await status.first;
-    if (currentStatus == AuthenticationStatus.authenticated) {
-      await _storage.write(
-        key: 'user',
-        value: '{"email": "$email", "name": "John Doe"}',
-      );
+    if (!isValid) throw Exception('Invalid credentials');
+    await _storage.write(
+      key: 'user',
+      value: '{"email": "$email", "name": "John Doe"}',
+    );
+    await Future.delayed(
+      const Duration(milliseconds: 1000),
+      () => _controller.add(AuthenticationStatus.authenticated),
+    );
+  }
+
+  Future<bool> validate({
+    required String email,
+    required String password,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    if (email == 'l.prova@gmail.com' && password == 'prova1234') {
+      return true;
     }
+    return false;
   }
 
   void logout() async {
     _controller.add(AuthenticationStatus.unauthenticated);
     await _storage.deleteAll();
-  }
-
-  Future<bool> validate(
-      {required String email, required String password}) async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (email == 'l.prova@gmail.com' && password == 'prova') return true;
-    return false;
-  }
-
-  Future<bool> isLogged() async {
-    final user = await _storage.read(key: 'user');
-    if (user != null) return true;
-    return false;
   }
 
   void dispose() => _controller.close();

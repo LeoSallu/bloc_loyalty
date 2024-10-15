@@ -2,6 +2,8 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_loyalty/authentication/authentication.dart';
 import 'package:bloc_loyalty/config/theme.dart';
 import 'package:bloc_loyalty/home/home.dart';
+import 'package:bloc_loyalty/login/login.dart';
+import 'package:bloc_loyalty/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
@@ -74,7 +76,7 @@ class _AppViewState extends State<AppView> {
                 );
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
+                  LoginPage.route(),
                   (route) => false,
                 );
               case AuthenticationStatus.unknown:
@@ -84,7 +86,7 @@ class _AppViewState extends State<AppView> {
           child: child,
         );
       },
-      onGenerateRoute: (_) => HomePage.route(),
+      onGenerateRoute: (_) => SplashPage.route(),
     );
   }
 }
