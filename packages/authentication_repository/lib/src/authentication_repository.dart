@@ -10,7 +10,12 @@ class AuthenticationRepository {
 
   Stream<AuthenticationStatus> get status async* {
     await Future.delayed(const Duration(seconds: 1));
-    yield AuthenticationStatus.unauthenticated;
+    final user = await _storage.read(key: 'user');
+    if (user != null) {
+      yield AuthenticationStatus.authenticated;
+    } else {
+      yield AuthenticationStatus.unauthenticated;
+    }
     yield* _controller.stream;
   }
 
