@@ -22,7 +22,7 @@ class AuthenticationRepository {
       value: '{"email": "$email", "name": "John Doe"}',
     );
     await Future.delayed(
-      const Duration(milliseconds: 1000),
+      const Duration(milliseconds: 500),
       () => _controller.add(AuthenticationStatus.authenticated),
     );
   }
@@ -31,7 +31,7 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (email == 'l.prova@gmail.com' && password == 'prova1234') {
       return true;
     }
