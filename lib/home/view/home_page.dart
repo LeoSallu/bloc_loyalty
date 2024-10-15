@@ -1,4 +1,7 @@
+import 'package:bloc_loyalty/home/cubit/home_cubit.dart';
+import 'package:bloc_loyalty/home/view/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,10 +12,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('home'),
-      ),
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: const HomeView(),
     );
   }
 }
