@@ -22,9 +22,12 @@ class HomeView extends StatelessWidget {
           ProfileView(),
         ],
       ),
+      extendBody: true,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        height: 100,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        color: Theme.of(context).colorScheme.onSecondaryContainer,
+        height: 95,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -100,7 +103,7 @@ class _HomeTabButton extends StatelessWidget {
               onPressed: () => context.read<HomeCubit>().setTab(value),
               icon: Icon(
                 icon,
-                size: 30,
+                size: 25,
               ),
             ),
             Text(
