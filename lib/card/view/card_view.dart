@@ -1,69 +1,53 @@
+import 'package:bloc_loyalty/card/widgets/card.dart';
 import 'package:flutter/material.dart';
 
-class CardView extends StatelessWidget {
+class CardView extends StatefulWidget {
   const CardView({super.key});
+
+  @override
+  State<CardView> createState() => _CardViewState();
+}
+
+class _CardViewState extends State<CardView> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+  Future<void> refreshData() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: refreshData,
+      child: SafeArea(
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              const SliverAppBar(
+                backgroundColor: Colors.transparent,
+                pinned: true,
+                floating: false,
+                expandedHeight: 250,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: FidelityCard(),
+                ),
               ),
-            ),
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Totale Punti',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Container(
-                      color: Colors.amberAccent,
-                      padding: const EdgeInsets.all(2),
-                      child: IconButton(
-                        onPressed: () => {},
-                        icon: const Icon(
-                          Icons.refresh,
-                        ),
-                      ),
-                    ),
-                  ],
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return const ListTile(
+                      title: Text('asd'),
+                    );
+                  },
+                  childCount: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    '10000',
-                    style: TextStyle(
-                      fontSize:
-                          Theme.of(context).textTheme.displayMedium?.fontSize,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SingleChildScrollView(
-            child: Text('SCROLL'),
-          )
-        ],
+        ),
       ),
     );
   }
