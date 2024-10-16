@@ -4,24 +4,27 @@ import 'package:bloc_loyalty/gifts/view/gifts_view.dart';
 import 'package:bloc_loyalty/home/cubit/home_cubit.dart';
 import 'package:bloc_loyalty/profile/view/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  HomeTab selectedTab = HomeTab.card;
+
+  void onSelectTab(HomeTab tab) {
+    setState(() {
+      selectedTab = tab;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
     return Scaffold(
-      body: IndexedStack(
-        index: selectedTab.index,
-        children: const [
-          CardView(),
-          FlyerView(),
-          GiftsView(),
-          ProfileView(),
-        ],
-      ),
+      body: _buildPageForTab(selectedTab),
       extendBody: true,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -37,6 +40,7 @@ class HomeView extends StatelessWidget {
               label: 'Carta',
               icon: Icons.card_membership,
               active: selectedTab == HomeTab.card,
+              onSelect: () => onSelectTab(HomeTab.card),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
@@ -44,6 +48,7 @@ class HomeView extends StatelessWidget {
               label: 'Volantino',
               icon: Icons.newspaper_sharp,
               active: selectedTab == HomeTab.flyer,
+              onSelect: () => onSelectTab(HomeTab.flyer),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
@@ -51,6 +56,7 @@ class HomeView extends StatelessWidget {
               label: 'Premi',
               icon: Icons.card_giftcard_sharp,
               active: selectedTab == HomeTab.gifts,
+              onSelect: () => onSelectTab(HomeTab.gifts),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
@@ -58,11 +64,27 @@ class HomeView extends StatelessWidget {
               label: 'Profilo',
               icon: Icons.person,
               active: selectedTab == HomeTab.profile,
+              onSelect: () => onSelectTab(HomeTab.profile),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildPageForTab(HomeTab tab) {
+    switch (tab) {
+      case HomeTab.card:
+        return const CardView();
+      case HomeTab.flyer:
+        return const FlyerView();
+      case HomeTab.gifts:
+        return const GiftsView();
+      case HomeTab.profile:
+        return const ProfileView();
+      default:
+        return const CardView();
+    }
   }
 }
 
@@ -73,6 +95,7 @@ class _HomeTabButton extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.active,
+    required this.onSelect,
   });
 
   final HomeTab groupValue;
@@ -80,6 +103,7 @@ class _HomeTabButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final bool active;
+  final void Function() onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +124,7 @@ class _HomeTabButton extends StatelessWidget {
                       : Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              onPressed: () => context.read<HomeCubit>().setTab(value),
+              onPressed: onSelect,
               icon: Icon(
                 icon,
                 size: 25,
