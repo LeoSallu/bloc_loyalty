@@ -1,4 +1,3 @@
-import 'package:bloc_loyalty/authentication/authentication.dart';
 import 'package:bloc_loyalty/card/view/card_view.dart';
 import 'package:bloc_loyalty/flyer/view/flyer_view.dart';
 import 'package:bloc_loyalty/gifts/view/gifts_view.dart';
@@ -14,57 +13,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
     return Scaffold(
-      appBar: AppBar(
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                style: ButtonStyle(
-                  padding: const WidgetStatePropertyAll(EdgeInsets.all(10)),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                  backgroundColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.primary),
-                  foregroundColor: WidgetStatePropertyAll(
-                    Theme.of(context).colorScheme.onPrimaryFixed,
-                  ),
-                ),
-                icon: Icon(
-                  Icons.chevron_right,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                onPressed: () => {},
-                iconAlignment: IconAlignment.end,
-                label: Text(
-                  'LEONARDO SALLUSTIO',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => context
-                    .read<AuthenticationBloc>()
-                    .add(AuthenticationLogoutPressed()),
-                child: const Text('LOGOUT'),
-              ),
-            ],
-          ),
-        ),
-      ),
       body: IndexedStack(
         index: selectedTab.index,
         children: const [
@@ -76,7 +24,7 @@ class HomeView extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        height: 120,
+        height: 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -134,12 +82,12 @@ class _HomeTabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double iconSize = (constraints.maxWidth * 0.1).clamp(20.0, 35.0);
         double fontSize = (constraints.maxWidth * 0.08).clamp(8.0, 15.0);
 
         return Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
               style: ButtonStyle(
@@ -152,10 +100,9 @@ class _HomeTabButton extends StatelessWidget {
               onPressed: () => context.read<HomeCubit>().setTab(value),
               icon: Icon(
                 icon,
-                size: iconSize,
+                size: 30,
               ),
             ),
-            const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
