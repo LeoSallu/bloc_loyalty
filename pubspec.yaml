@@ -39,6 +39,7 @@ dependencies:
   user_repository:
     path: packages/user_repository
   formz: ^0.7.0
+  flutter_cached_pdfview: ^0.4.2
 
 dev_dependencies:
   flutter_test:

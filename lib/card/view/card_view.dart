@@ -42,7 +42,7 @@ class _CardViewState extends State<CardView> {
                       title: Text('asd'),
                     );
                   },
-                  childCount: 20,
+                  childCount: 30,
                 ),
               ),
             ],
