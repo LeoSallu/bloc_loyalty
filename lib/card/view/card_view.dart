@@ -38,11 +38,31 @@ class _CardViewState extends State<CardView> {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return const ListTile(
-                      title: Text('asd'),
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: const Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.card_giftcard_sharp,
+                                ),
+                                SizedBox(width: 25),
+                                Text('Tipo Transazione'),
+                              ],
+                            ),
+                          ),
+                          subtitle: Text(
+                            '${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year.toString().substring(2)}',
+                          ),
+                        ),
+                        const Divider(),
+                      ],
                     );
                   },
-                  childCount: 30,
+                  childCount: 10,
                 ),
               ),
             ],
