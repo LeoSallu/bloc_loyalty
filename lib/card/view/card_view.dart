@@ -35,22 +35,44 @@ class _CardViewState extends State<CardView> {
                   background: FidelityCard(),
                 ),
               ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    'Estratto Punti',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return Column(
                       children: [
                         ListTile(
-                          title: const Padding(
-                            padding: EdgeInsets.all(12),
+                          title: Padding(
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.card_giftcard_sharp,
+                                  size: 35,
                                 ),
-                                SizedBox(width: 25),
-                                Text('Tipo Transazione'),
+                                const SizedBox(width: 25),
+                                Text(
+                                  'Tipo Transazione',
+                                  style: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.fontSize,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

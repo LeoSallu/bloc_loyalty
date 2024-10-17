@@ -1,6 +1,7 @@
 import 'package:bloc_loyalty/authentication/authentication.dart';
 import 'package:bloc_loyalty/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileView extends StatelessWidget {
@@ -15,9 +16,10 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height / 6,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.elliptical(70, 30),
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(70, 30),
           ),
         ),
         centerTitle: true,
@@ -35,7 +37,7 @@ class ProfileView extends StatelessWidget {
               'NOME E COGNOME',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -43,43 +45,46 @@ class ProfileView extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       ),
-      body: Container(
-        margin: const EdgeInsets.only(top: 20),
-        alignment: Alignment.center,
-        width: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildProfileLink(
-              context,
-              Icons.person,
-              'Dati Account',
-              true,
-              () {},
-            ),
-            _buildProfileLink(
-              context,
-              Icons.emoji_people,
-              'Dati Personali',
-              true,
-              () {},
-            ),
-            _buildProfileLink(
-              context,
-              Icons.settings,
-              'Opzioni',
-              true,
-              () {},
-            ),
-            _buildProfileLink(
-              context,
-              Icons.logout,
-              'Logout',
-              false,
-              () => logout(),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.009),
+          alignment: Alignment.center,
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildProfileLink(
+                context,
+                Icons.person,
+                'Dati Account',
+                true,
+                () {},
+              ),
+              _buildProfileLink(
+                context,
+                Icons.emoji_people,
+                'Dati Personali',
+                true,
+                () {},
+              ),
+              _buildProfileLink(
+                context,
+                Icons.settings,
+                'Opzioni',
+                true,
+                () {},
+              ),
+              _buildProfileLink(
+                context,
+                Icons.logout,
+                'Logout',
+                false,
+                () => logout(),
+              ),
+            ],
+          ),
         ),
       ),
     );

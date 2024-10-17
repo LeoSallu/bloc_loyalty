@@ -28,41 +28,44 @@ class LoginForm extends StatelessWidget {
             });
         }
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        color: Colors.white,
-        alignment: const Alignment(0, -1 / 1.5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.network(
-                    path,
-                    width: MediaQuery.of(context).devicePixelRatio / 0.01,
-                  ),
-                  Center(
-                    child: Text(
-                      'Accedi all\'app per ottenere dei vantaggi!',
-                      style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodyLarge?.fontSize,
-                        fontWeight: FontWeight.w800,
-                      ),
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          color: Colors.white,
+          alignment: const Alignment(0, -1 / 1.5),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.network(
+                      path,
+                      width: MediaQuery.of(context).devicePixelRatio / 0.01,
                     ),
-                  )
-                ],
+                    Center(
+                      child: Text(
+                        'Accedi all\'app per ottenere dei vantaggi!',
+                        style: TextStyle(
+                          fontSize:
+                              Theme.of(context).textTheme.bodyLarge?.fontSize,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(12)),
-            _EmailInput(),
-            const Padding(padding: EdgeInsets.all(12)),
-            _PasswordInput(),
-            const Padding(padding: EdgeInsets.all(12)),
-            _LoginButton()
-          ],
+              const Padding(padding: EdgeInsets.all(12)),
+              _EmailInput(),
+              const Padding(padding: EdgeInsets.all(12)),
+              _PasswordInput(),
+              const Padding(padding: EdgeInsets.all(12)),
+              _LoginButton()
+            ],
+          ),
         ),
       ),
     );
@@ -81,6 +84,8 @@ class _EmailInput extends StatelessWidget {
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email));
       },
+      keyboardType: TextInputType.emailAddress,
+      textCapitalization: TextCapitalization.none,
       decoration: InputDecoration(
         labelText: 'Email',
         labelStyle: TextStyle(
