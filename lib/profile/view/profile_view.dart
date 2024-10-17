@@ -24,17 +24,18 @@ class ProfileView extends StatelessWidget {
         ),
         centerTitle: true,
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'CIAO 👋🏻',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: 25,
+                fontSize: 20,
               ),
             ),
             const SizedBox(height: 10),
             Text(
-              'NOME E COGNOME',
+              'Leonardo Sallustio'.toUpperCase(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 25,
@@ -60,32 +61,121 @@ class ProfileView extends StatelessWidget {
                 Icons.person,
                 'Dati Account',
                 true,
-                () {},
+                () => _buildModal(
+                  context,
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 1.45,
+                    child: const Center(
+                      child: Text('Dati Account'),
+                    ),
+                  ),
+                ),
               ),
               _buildProfileLink(
                 context,
                 Icons.emoji_people,
                 'Dati Personali',
                 true,
-                () {},
+                () => _buildModal(
+                  context,
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 1.45,
+                    child: const Center(
+                      child: Text('Dati Personali'),
+                    ),
+                  ),
+                ),
               ),
               _buildProfileLink(
                 context,
                 Icons.settings,
                 'Opzioni',
                 true,
-                () {},
+                () => _buildModal(
+                  context,
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 1.45,
+                    child: const Center(
+                      child: Text('Opzioni'),
+                    ),
+                  ),
+                ),
               ),
               _buildProfileLink(
                 context,
                 Icons.logout,
                 'Logout',
                 false,
-                () => logout(),
+                () => _buildModal(
+                  context,
+                  _buildLogoutModal(context, logout),
+                ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _buildModal(context, Widget page) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.elliptical(70, 30),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return page;
+      },
+    );
+  }
+
+  SizedBox _buildLogoutModal(context, Function logout) {
+    return SizedBox(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height / 4,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Sei Sicuro ?',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Annulla'),
+              ),
+              const SizedBox(width: 15),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Colors.red),
+                ),
+                onPressed: () => logout(),
+                child: Text(
+                  'Prosegui',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
