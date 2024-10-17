@@ -11,6 +11,7 @@ class CustomPdfViewer extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 1.45,
       child: const PDF(
         swipeHorizontal: true,
+        enableSwipe: true,
       ).cachedFromUrl(
         url,
         placeholder: (progress) => Center(

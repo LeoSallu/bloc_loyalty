@@ -1,43 +1,28 @@
+import 'package:bloc_loyalty/ui/components/custom_pdf_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter/services.dart';
 
 class FlyerView extends StatelessWidget {
   const FlyerView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        toolbarHeight: MediaQuery.of(context).size.height / 8,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
           'Volantino del mese',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontSize: 30,
+            fontWeight: FontWeight.w600,
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
       ),
-      body: const _Flyer(
-        url: 'url',
-      ),
-    );
-  }
-}
-
-class _Flyer extends StatelessWidget {
-  const _Flyer({required this.url});
-  final String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 1.3,
-      child: const PDF(swipeHorizontal: true).cachedFromUrl(
-        url,
-        placeholder: (double progress) => Center(child: Text('$progress %')),
-        errorWidget: (dynamic error) => Center(child: Text(error.toString())),
-        maxAgeCacheObject: const Duration(seconds: 1),
-      ),
+      body: const CustomPdfViewer(url: 'https://pdfobject.com/pdf/sample.pdf'),
     );
   }
 }
