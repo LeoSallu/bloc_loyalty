@@ -10,8 +10,13 @@ class GiftsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: MediaQuery.of(context).size.height / 8,
+        toolbarHeight: MediaQuery.of(context).size.height / 6,
         systemOverlayStyle: SystemUiOverlayStyle.light,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.elliptical(70, 30),
+          ),
+        ),
         title: Text(
           'Premi',
           style: TextStyle(
@@ -20,7 +25,7 @@ class GiftsView extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       ),
       body: const CustomPdfViewer(url: 'https://pdfobject.com/pdf/sample.pdf'),
     );

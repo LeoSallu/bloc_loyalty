@@ -136,9 +136,10 @@ class _FidelityCardState extends State<FidelityCard> {
             Text(
               'Numero Carta',
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondaryFixed,
-                  fontWeight: FontWeight.w500,
-                  fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize),
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.w500,
+                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+              ),
             ),
           ],
         ),
@@ -151,6 +152,9 @@ class _FidelityCardState extends State<FidelityCard> {
             height: 110,
             data: '0401021022323',
             color: Theme.of(context).colorScheme.onSecondaryFixed,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
           ),
         ),
       ],
