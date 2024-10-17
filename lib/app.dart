@@ -70,15 +70,21 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (route) => false,
-                );
+                Future.delayed(const Duration(milliseconds: 1450), () {
+                  _navigator.pushAndRemoveUntil<void>(
+                    HomePage.route(),
+                    (route) => false,
+                  );
+                });
+                break;
               case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
-                  (route) => false,
-                );
+                Future.delayed(const Duration(milliseconds: 1450), () {
+                  _navigator.pushAndRemoveUntil<void>(
+                    LoginPage.route(),
+                    (route) => false,
+                  );
+                });
+                break;
               case AuthenticationStatus.unknown:
                 break;
             }

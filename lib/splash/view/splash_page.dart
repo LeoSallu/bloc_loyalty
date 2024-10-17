@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -18,8 +19,9 @@ class SplashPage extends StatelessWidget {
           height: double.infinity,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
           child: Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.onPrimary,
+            child: Lottie.network(
+              repeat: true,
+              'https://lottie.host/400afa17-8f66-4011-a4fb-964ede2fd789/TAkgrfzEaS.json',
             ),
           ),
         ),
