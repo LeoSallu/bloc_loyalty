@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 
 class FidelityCard extends StatefulWidget {
@@ -109,15 +110,13 @@ class _FidelityCardState extends State<FidelityCard> {
           ],
         ),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 20),
+          margin: const EdgeInsets.symmetric(vertical: 15),
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Text(
-            '04010210223',
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.displayMedium?.fontSize,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
+          child: BarcodeWidget(
+            barcode: Barcode.code128(),
+            width: double.infinity,
+            height: 110,
+            data: '0401021022323',
           ),
         ),
       ],
